@@ -1,0 +1,113 @@
+html,
+body {
+  margin: 0;
+  padding: 5;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+#map {
+  width: 100%; /* Adjust width to your desired size */
+  height: 100%; /* Adjust height to your desired size */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for effect */
+  border-radius: 8px; /* Optional: rounded corners */
+}
+
+header {
+    display: flex;
+    gap: 1em;
+    align-items: baseline;
+    margin-bottom: 1em;
+}
+
+header label {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5em;
+}
+
+header time {
+    display: block;
+    font-weight: 500;
+}
+
+header em {
+    display: block;
+    color: #666;
+    font-style: italic;
+}
+
+/* Style the range input */
+input[type="range"] {
+    width: 200px;
+    margin: 0.5em 0;
+}
+
+/* Shared color variables and mixing */
+#map circle,
+.legend > div {
+    --color-departures: steelblue;
+    --color-arrivals: darkorange;
+    --color: color-mix(
+        in oklch,
+        var(--color-departures) calc(100% * var(--departure-ratio)),
+        var(--color-arrivals)
+    );
+}
+
+/* Circle specific styling */
+#map circle {
+    fill: var(--color);
+    fill-opacity: 0.6;
+    stroke: white;
+    stroke-width: 1;
+}
+
+/* Legend styling */
+.legend {
+    display: flex;
+    gap: 2em;
+    align-items: center;
+    margin-block: 1em;
+}
+
+.legend > div {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.legend > div:not(:first-child)::before {
+    content: "";
+    width: 1em;
+    height: 1em;
+    background: var(--color);
+    border-radius: 2px;
+}
+
+.legend > div:not(:first-child) {
+    --color-departures: steelblue;
+    --color-arrivals: darkorange;
+    --color: color-mix(
+        in oklch,
+        var(--color-departures) calc(100% * var(--departure-ratio)),
+        var(--color-arrivals)
+    );
+}
+
+.legend > div:nth-child(2) {
+    --departure-ratio: 1;
+}
+
+.legend > div:nth-child(3) {
+    --departure-ratio: 0.5;
+}
+
+.legend > div:nth-child(4) {
+    --departure-ratio: 0;
+}
